@@ -7,4 +7,8 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
+interface test {
+
+}
+
 export { app };
