@@ -2,12 +2,20 @@ import { z } from "zod";
 
 z.config({
     customError: (issue) => {
+
+        if (
+            issue.code === "invalid_type" &&
+            issue.input === undefined
+        ) {
+            return "Campo obrigatório";
+        }
+
         if (issue.code === "invalid_type") {
             return `O tipo esperado é ${issue.expected}.`;
         };
 
         if (issue.code === "unrecognized_keys") {
-            return `query inválida! verifique os campos da query.`;
+            return `Campos inválidos: ${issue.keys.join(", ")}`;
         };
 
         if (
