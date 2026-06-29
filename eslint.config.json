@@ -1,0 +1,75 @@
+{
+    "env" :{
+        "es2021": true,
+        "node": true
+    },
+    "files": [
+        "**/*.{js,mjs,cjs,ts,mts,cts}"
+    ],
+    "plugins": {
+        "js": "@eslint/js"
+    },
+    "extends": [
+        "js/recommended"
+    ],
+    "languageOptions": {
+        "globals": "node"
+    },
+    "overrides": [
+        {
+            "files": [
+                "**/*.json"
+            ],
+            "plugins": {
+                "json": "@eslint/json"
+            },
+            "language": "json/json",
+            "extends": [
+                "json/recommended"
+            ]
+        },
+        {
+            "files": [
+                "**/*.jsonc"
+            ],
+            "plugins": {
+                "json": "@eslint/json"
+            },
+            "language": "json/jsonc",
+            "extends": [
+                "json/recommended"
+            ]
+        },
+        {
+            "files": [
+                "**/*.md"
+            ],
+            "plugins": {
+                "markdown": "@eslint/markdown"
+            },
+            "language": "markdown/gfm",
+            "extends": [
+                "markdown/recommended"
+            ]
+        },
+        {
+            "files": [
+                "**/*.css"
+            ],
+            "plugins": {
+                "css": "@eslint/css"
+            },
+            "language": "css/css",
+            "extends": [
+                "css/recommended"
+            ]
+        }
+    ],
+    "rules": {
+        "semi": [
+            "warn",
+            "always"
+        ],
+        "@typescript-eslint/no-empty-object-type": "off"
+    }
+}
