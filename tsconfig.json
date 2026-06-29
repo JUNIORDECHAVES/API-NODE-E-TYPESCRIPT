@@ -2,7 +2,7 @@
     // Visit https://aka.ms/tsconfig to read more about this file
     "compilerOptions": {
         // File Layout
-        "rootDir": "./src",
+        "rootDir": ".",
         "outDir": "./build",
         // Environment Settings
         // See also https://aka.ms/tsconfig/module
@@ -10,7 +10,8 @@
         "module": "esnext",
         "target": "esnext",
         "types": [
-            "node"
+            "node",
+            "jest"
         ],
         // For nodejs:
         // "lib": ["esnext"],
@@ -32,16 +33,21 @@
         // "noPropertyAccessFromIndexSignature": true,
         // Recommended Options
         "strict": true,
-        "jsx": "react-jsx",
         "verbatimModuleSyntax": true,
         "isolatedModules": true,
         "noUncheckedSideEffectImports": true,
         "moduleDetection": "force",
         "skipLibCheck": true,
     },
+    "include": [
+        "src/**/*",
+        "tests/**/*"
+    ],
     "exclude": [
         "node_modules",
         "build",
-        "eslint.config.ts"
+        "eslint.config.ts",
+        "jest.config.ts",
+        
     ]
 }

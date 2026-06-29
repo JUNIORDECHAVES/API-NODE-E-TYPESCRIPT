@@ -1,0 +1,14 @@
+{
+    "extends": "./tsconfig.json", // Herda tudo do arquivo principal
+    "compilerOptions": {
+        // Força a raiz da build a ser apenas a pasta src
+        "rootDir": "./src"
+    },
+    "exclude": [
+        "node_modules",
+        "build",
+        "eslint.config.ts",
+        "jest.config.ts",
+        "tests/**/*" // <--- Remove a pasta tests do processo de compilação
+    ]
+}
