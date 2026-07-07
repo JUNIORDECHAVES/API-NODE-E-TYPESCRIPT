@@ -2,6 +2,10 @@
     "extends": "./tsconfig.json", // Herda tudo do arquivo principal
     "compilerOptions": {
         // Força a raiz da build a ser apenas a pasta src
+        "target": "ES2022",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "outDir": "./build",
         "rootDir": "./src"
     },
     "exclude": [
