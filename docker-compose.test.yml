@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+    postgres_test:
+        image: postgres:15-alpine
+        container_name: api-node-postgres-test
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: senha_de_teste
+            POSTGRES_DB: meu_banco_test
+        ports:
+            - "5433:5432"
