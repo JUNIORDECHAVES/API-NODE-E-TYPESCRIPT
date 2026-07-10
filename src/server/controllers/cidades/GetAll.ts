@@ -2,6 +2,7 @@ import z from "zod";
 import { validation } from "../../shared/middleware";
 import type { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+import { prisma } from "../../../lib/prisma";
 
 
 const Iqueryschema = z.object({
@@ -18,13 +19,30 @@ export const GetAllValidation: RequestHandler = validation((getSchema) => ({
 
 
 export const getAll = async (req: Request<{}, {}, {}, IQueryprops>, res: Response) => {
-    res.setHeader("access-control-expose-headers", "x-total-count");
-    res.setHeader("x-total-count", 1);
-    
-    return res.status(StatusCodes.OK).json([
-        {
-            id: 1,
-            nome: "Caxias do Sul",
+    const page = Number(req.query.page);
+    const limit = Number(req.query.limit);
+    const filter = req.query.filter;
+
+    const whereCondition = filter ? {
+        nome: {
+            contains: filter,
+            mode: 'insensitive' as const
         }
-    ]);
+    } : undefined;
+
+    const todasCidades = await prisma.cidades.findMany({
+        skip: (page - 1) * limit,
+        take: limit, 
+        where: whereCondition,
+    });
+
+    const totalCount = await prisma.cidades.count({
+        where: whereCondition
+    });
+
+
+    res.setHeader("access-control-expose-headers", "x-total-count");
+    res.setHeader("x-total-count", totalCount);
+    
+    return res.status(StatusCodes.OK).json(todasCidades);
 };
