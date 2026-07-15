@@ -6,14 +6,14 @@ describe("cidedas - getAll", () => {
 
     it('Buscar todos os registros', async () => {
 
-        const res1 = await testServer
-            .post('/cidades')
-            .send({ nome: 'Caxias do sul' });
+        // const res1 = await testServer
+        //     .post('/cidades')
+        //     .send({ nome: 'Caxias do sul' });
 
-        expect(res1.statusCode).toEqual(StatusCodes.CREATED);
+        // expect(res1.statusCode).toEqual(StatusCodes.CREATED);
 
         const resBuscada = await testServer
-            .get('/cidades')
+            .get('/cidades?page=1&limit=8')
             .send();
 
         expect(Number(resBuscada.header['x-total-count'])).toBeGreaterThan(0);

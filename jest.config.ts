@@ -75,18 +75,18 @@ const config: Config = {
     // ],
 
     // An array of file extensions your modules use
-    // moduleFileExtensions: [
-    //   "js",
-    //   "mjs",
-    //   "cjs",
-    //   "jsx",
-    //   "ts",
-    //   "mts",
-    //   "cts",
-    //   "tsx",
-    //   "json",
-    //   "node"
-    // ],
+    moduleFileExtensions: [
+        "js",
+        "mjs",
+        "cjs",
+        "jsx",
+        "ts",
+        "mts",
+        "cts",
+        "tsx",
+        "json",
+        "node"
+    ],
 
     // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
     // moduleNameMapper: {},
@@ -101,8 +101,8 @@ const config: Config = {
     // notifyMode: "failure-change",
 
     // A preset that is used as a base for Jest's configuration
-    preset: "ts-jest",
-
+    preset: 'ts-jest',
+    extensionsToTreatAsEsm: [".ts"],
     // Run tests from one or more projects
     // projects: undefined,
 
@@ -176,15 +176,26 @@ const config: Config = {
 
     // A map from regular expressions to paths to transformers
     transform: {
-        "^.+\\.(ts|tsx)$": "ts-jest"
+        // Isso força o SWC a compilar seus testes, arquivos src e o Prisma gerado
+        '^.+\\.(t|j)sx?$': [
+            '@swc/jest',
+            {
+                jsc: {
+                    parser: {
+                        syntax: 'typescript',
+                        tsx: false,
+                    },
+                    target: 'es2022', // Garante suporte ao import.meta
+                },
+            },
+        ],
     },
 
     // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-    // transformIgnorePatterns: [
-    //   "\\\\node_modules\\\\",
-    //   "\\.pnp\\.[^\\\\]+$"
-    // ],
-
+    transformIgnorePatterns: [
+        'node_modules/(?!@prisma)',
+        // '/node_modules/(?!\\.pnpm|@prisma/client)',
+    ],
     // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
     // unmockedModulePathPatterns: undefined,
 

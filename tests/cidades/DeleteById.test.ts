@@ -2,18 +2,18 @@ import { StatusCodes } from "http-status-codes";
 import { testServer } from "../jest.setup";
 
 
+
 describe("cidades - delete", () => {
 
     it("Apaga registro", async () => {
 
-        const res1 = await testServer
-            .post('/cidades')
-            .send({ nome: 'Caxias do sul' });
+        const res1 = await testServer.post("/cidades").send({ nome: 'Caxias do sul' });
+
 
         expect(res1.statusCode).toEqual(StatusCodes.CREATED);
 
         const resApagada = await testServer
-            .delete(`/cidades/${res1.body}`)
+            .delete(`/cidades/${res1.body.id}`)
             .send();
 
         expect(resApagada.statusCode).toEqual(StatusCodes.NO_CONTENT);
@@ -25,7 +25,7 @@ describe("cidades - delete", () => {
             .delete('/cidades/99999')
             .send();
 
-        expect(res1.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
+        expect(res1.statusCode).toEqual(StatusCodes.BAD_REQUEST);
         expect(res1.body).toHaveProperty('errors.default');
     });
 
