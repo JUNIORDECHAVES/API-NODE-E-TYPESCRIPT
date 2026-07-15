@@ -14,7 +14,7 @@ datasource db {
 
 model Cidades {
     id Int @id @default(autoincrement())
-    nome String @db.VarChar(100)
+    nome String @unique @db.VarChar(100)
 
     @@index([id, nome])
 }
