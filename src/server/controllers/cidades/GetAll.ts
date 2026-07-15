@@ -2,12 +2,12 @@ import z from "zod";
 import { validation } from "../../shared/middleware";
 import type { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { prisma } from "../../../lib/prisma";
+import { cidadesProvider } from "../../database/provider/cidades";
 
 
 const Iqueryschema = z.object({
-    page: z.coerce.number().int().min(1).optional(),
-    limit: z.coerce.number().int().min(1).optional(),
+    page: z.coerce.number().int().min(1).optional().default(1),
+    limit: z.coerce.number().int().min(1).optional().default(5),
     filter: z.string().optional(),
 }).strict();
 
@@ -23,26 +23,17 @@ export const getAll = async (req: Request<{}, {}, {}, IQueryprops>, res: Respons
     const limit = Number(req.query.limit);
     const filter = req.query.filter;
 
-    const whereCondition = filter ? {
-        nome: {
-            contains: filter,
-            mode: 'insensitive' as const
-        }
-    } : undefined;
+    const result = await cidadesProvider.getAll({ filter, page, limit });
 
-    const todasCidades = await prisma.cidades.findMany({
-        skip: (page - 1) * limit,
-        take: limit, 
-        where: whereCondition,
-    });
+    if (result instanceof Error) return res.status(StatusCodes.BAD_REQUEST).json({ errors: { default: result.message } });
 
-    const totalCount = await prisma.cidades.count({
-        where: whereCondition
-    });
-
+    
 
     res.setHeader("access-control-expose-headers", "x-total-count");
-    res.setHeader("x-total-count", totalCount);
+    res.setHeader("x-total-count", result.totalCount);
+
+
     
-    return res.status(StatusCodes.OK).json(todasCidades);
+    
+    return res.status(StatusCodes.OK).json(result.todasCidades);
 };

@@ -29,6 +29,14 @@ z.config({
             return `O valor deve ser maior ou igual ${issue.minimum}`;
         }
 
+        if (
+            issue.code === "too_big" &&
+            issue.origin === "string"
+        ) {
+            return `Deve ter no máximo ${issue.maximum} caracteres`;
+        }
+
+
         return "Valor inválido";
     },
 });

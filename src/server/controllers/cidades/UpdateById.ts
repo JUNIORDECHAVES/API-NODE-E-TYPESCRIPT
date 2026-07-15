@@ -1,7 +1,8 @@
 import type { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import z from "zod";
-import { validation } from "../../shared/middleware";
+import { validation } from "../../shared/middleware/Validation";
+
 
 const paramsSchema = z.object({
     id: z.coerce.number().int().min(1).optional(),
