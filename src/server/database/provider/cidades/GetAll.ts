@@ -1,23 +1,14 @@
 import { prisma } from "../../../../lib/prisma";
+import type { ICidade } from "../../models";
 
-export interface IGetAllParams {
-    filter?: string;
-    page?: number;
-    limit?: number;
-}
-
-interface ICidadeResult {
-    id: number;
-    nome: string;
-}
 
 export interface IGetAllResult {
-    todasCidades: ICidadeResult[];
+    todasCidades: ICidade[];
     totalCount: number;
 }
 
 
-export const getAll = async ({ filter, page, limit }: IGetAllParams): Promise<IGetAllResult | Error> => {
+export const getAll = async ( page: number, limit: number, filter?: string ): Promise<IGetAllResult | Error> => {
     try {
         const whereCondition = filter ? {
             nome: {

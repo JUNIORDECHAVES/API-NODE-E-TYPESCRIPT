@@ -21,7 +21,7 @@ export const deleteById = async (req: Request<IParamsProps>, res: Response) => {
     const result = await cidadesProvider.deleteById(Number(req.params.id));
 
 
-    if (result instanceof Error) return res.status(StatusCodes.BAD_REQUEST).json({ errors: { default: result.message } });
+    if (result instanceof Error) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: { default: result.message } });
 
 
     return res.status(StatusCodes.NO_CONTENT).send();

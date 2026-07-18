@@ -19,7 +19,7 @@ export const create = async (req: Request<{}, {}, ICidade>, res: Response) => {
 
     const result = await cidadesProvider.create(req.body.nome);
 
-    if (result instanceof Error) return res.status(StatusCodes.BAD_REQUEST).json({ errors: { default: result.message } });
+    if (result instanceof Error) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: { default: result.message } });
 
 
     return res.status(StatusCodes.CREATED).json({ message: "Cidade cadastrada com sucesso!", id: result });

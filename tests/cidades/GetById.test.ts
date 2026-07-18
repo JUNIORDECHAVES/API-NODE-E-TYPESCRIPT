@@ -13,7 +13,7 @@ describe("cidedas - getById", () => {
         expect(res1.statusCode).toEqual(StatusCodes.CREATED);
 
         const resBuscada = await testServer
-            .get(`/cidades/${res1.body}`)
+            .get(`/cidades/${res1.body.id}`)
             .send();
 
         expect(resBuscada.statusCode).toEqual(StatusCodes.OK);

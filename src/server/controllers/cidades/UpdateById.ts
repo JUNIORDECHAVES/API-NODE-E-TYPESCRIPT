@@ -2,6 +2,7 @@ import type { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import z from "zod";
 import { validation } from "../../shared/middleware/Validation";
+import { cidadesProvider } from "../../database/provider/cidades";
 
 
 const paramsSchema = z.object({
@@ -22,8 +23,10 @@ export const updateByIdValidation: RequestHandler = validation((getSchema) => ({
 
 
 export const updatById = async (req: Request<IParamsProps, {}, IBodyProps>, res: Response) => {
-    console.log(req.params, req.body);
-    if (Number(req.params.id)=== 99999) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: {default: "Registro nao encontrado"} });
 
-    res.status(StatusCodes.NO_CONTENT).json({ error: "não implementado!" });
+    const result = await cidadesProvider.updateById(Number(req.params.id), req.body.nome);
+
+    if (result instanceof Error) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: { default: result.message } });
+
+    res.status(StatusCodes.NO_CONTENT).json();
 };
