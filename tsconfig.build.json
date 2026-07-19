@@ -14,5 +14,10 @@
         "eslint.config.ts",
         "jest.config.ts",
         "tests/**/*" // <--- Remove a pasta tests do processo de compilação
+    ],
+    "include": [
+        "src/**/*",
+        "prisma.config.ts"
     ]
+
 }
