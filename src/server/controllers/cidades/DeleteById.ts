@@ -9,16 +9,14 @@ const IparamSchema = z.object({
     id: z.coerce.number().int().min(1)
 }).strict();
 
-type IParamsProps = z.infer<typeof IparamSchema>;
-
 export const deleteValidation: RequestHandler = validation((getSchema) => ({
     params: getSchema(IparamSchema),
 }));
 
 
-export const deleteById = async (req: Request<IParamsProps>, res: Response) => {
-    
-    const result = await cidadesProvider.deleteById(Number(req.params.id));
+export const deleteById = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    const result = await cidadesProvider.deleteById(id);
 
 
     if (result instanceof Error) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: { default: result.message } });

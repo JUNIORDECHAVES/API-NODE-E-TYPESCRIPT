@@ -11,17 +11,15 @@ const Iqueryschema = z.object({
     filter: z.string().optional(),
 }).strict();
 
-type IQueryprops = z.infer<typeof Iqueryschema>;
-
 export const GetAllValidation: RequestHandler = validation((getSchema) => ({
     query: getSchema(Iqueryschema),
 }));
 
 
-export const getAll = async (req: Request<{}, {}, {}, IQueryprops>, res: Response) => {
+export const getAll = async (req: Request, res: Response) => {
     const page = Number(req.query.page);
     const limit = Number(req.query.limit);
-    const filter = req.query.filter;
+    const filter = req.query.filter as string | undefined;
 
     const result = await cidadesProvider.getAll(page, limit, filter);
 
