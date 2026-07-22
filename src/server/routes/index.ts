@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router: Router = Router();
-import { cidadesControlles } from "../controllers";
+import { cidadesControlles } from "../controllers/index.js";
 
 router.get('/cidades', cidadesControlles.GetAllValidation, cidadesControlles.getAll);
 router.post('/cidades', cidadesControlles.createValidation, cidadesControlles.create);

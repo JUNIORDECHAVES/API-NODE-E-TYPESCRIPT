@@ -1,8 +1,8 @@
 import type { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import z from "zod";
-import { validation } from "../../shared/middleware/Validation";
-import { cidadesProvider } from "../../database/provider/cidades";
+import { validation } from "../../shared/middleware/Validation.js";
+import { cidadesProvider } from "../../database/provider/cidades/index.js";
 
 
 const paramsSchema = z.object({

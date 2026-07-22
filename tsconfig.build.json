@@ -1,15 +1,7 @@
 {
-    "extends": "./tsconfig.json", // Herda tudo do arquivo principal
+    "extends": "./tsconfig.json",
     "compilerOptions": {
-        // Força a raiz da build a ser apenas a pasta src
-        
-        "moduleResolution": "bundler",
-        "module": "esnext",
-        "target": "es2022",
-        "outDir": "./build",
-        "rootDir": "./",
-        // "allowImportingTsExtensions": true,
-        "noEmit": false,
+        "noEmit": false
     },
     "exclude": [
         "node_modules",
@@ -20,7 +12,8 @@
     ],
     "include": [
         "src/**/*",
-        "prisma.config.ts"
+        "prisma.config.ts",
+        "generated/**/*",
+        "prisma/**/*"
     ]
-
 }

@@ -7,7 +7,7 @@
         "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --forceExit",
         "dev": "tsx watch src/index.ts",
         "build": "tsc -p tsconfig.build.json",
-        "start": "node build/index.js"
+        "start": "node build/src/index.js"
     },
     "type": "module",
     "keywords": [],

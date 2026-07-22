@@ -1,9 +1,9 @@
 import type { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as z from "zod";
-import "../../shared/services/TranslationZod";
-import { validation } from "../../shared/middleware";
-import { cidadesProvider } from "../../database/provider/cidades";
+import "../../shared/services/TranslationZod.js";
+import { validation } from "../../shared/middleware/index.js";
+import { cidadesProvider } from "../../database/provider/cidades/index.js";
 
 export const cidadeValidation = z.object({
     nome: z.string().min(3).max(100),

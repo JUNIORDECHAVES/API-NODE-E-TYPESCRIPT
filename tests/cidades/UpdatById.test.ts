@@ -1,4 +1,4 @@
-import { testServer } from "../jest.setup";
+import { testServer } from "../jest.setup.js";
 import { StatusCodes } from "http-status-codes";
 
 describe("cidades - updateById", () => {

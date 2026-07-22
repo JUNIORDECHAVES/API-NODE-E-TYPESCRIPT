@@ -1,4 +1,4 @@
-import { prisma } from "../../../../lib/prisma"
+import { prisma } from "../../../../lib/prisma.js"
 
 export const updateById = async (id: number, nome: string): Promise<void | Error> => {
     try {

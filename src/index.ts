@@ -1,4 +1,4 @@
-import { app } from "./server/server";
+import { app } from "./server/server.js";
 
 
 app.listen(process.env.PORT || 3333,() => {

@@ -1,6 +1,6 @@
 import supertest from "supertest";
-import { app } from "../src/server/server";
-import { prisma } from "../src/lib/prisma";
+import { app } from "../src/server/server.js";
+import { prisma } from "../src/lib/prisma.js";
 import { execSync } from "child_process";
 
 export const testServer = supertest(app);
@@ -36,7 +36,7 @@ afterAll(async () => {
 
         // 2. Mapear os nomes e criar um único comando de TRUNCATE concatenado
         const tables = tablenames
-            .map(({ tablename }) => `"${tablename}"`)
+            .map(({ tablename }: { tablename: string }) => `"${tablename}"`)
             .join(", ");
 
         if (tables.length > 0) {

@@ -1,1 +1,1 @@
-export * from "./cidades";
+export * from "./cidades.js";

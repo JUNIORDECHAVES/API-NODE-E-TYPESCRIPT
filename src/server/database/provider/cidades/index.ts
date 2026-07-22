@@ -1,8 +1,8 @@
-import { create } from "./Create";
-import { deleteById } from "./DeleteById";
-import { getAll } from "./GetAll";
-import { getById } from "./GetById";
-import { updateById } from "./UpdatById";
+import { create } from "./Create.js";
+import { deleteById } from "./DeleteById.js";
+import { getAll } from "./GetAll.js";
+import { getById } from "./GetById.js";
+import { updateById } from "./UpdatById.js";
 
 export const cidadesProvider = {
     create,

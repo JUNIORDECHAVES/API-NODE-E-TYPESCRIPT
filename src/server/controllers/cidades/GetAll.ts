@@ -1,8 +1,8 @@
 import z from "zod";
-import { validation } from "../../shared/middleware";
+import { validation } from "../../shared/middleware/index.js";
 import type { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { cidadesProvider } from "../../database/provider/cidades";
+import { cidadesProvider } from "../../database/provider/cidades/index.js";
 
 
 const Iqueryschema = z.object({

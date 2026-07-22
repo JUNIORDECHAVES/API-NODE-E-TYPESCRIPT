@@ -1,5 +1,5 @@
-import { prisma } from "../../../../lib/prisma";
-import type { ICidade } from "../../models";
+import { prisma } from "../../../../lib/prisma.js";
+import type { ICidade } from "../../models/index.js";
 
 
 export const getById = async (id: number): Promise< ICidade | Error> => {

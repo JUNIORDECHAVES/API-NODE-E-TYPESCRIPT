@@ -1,8 +1,8 @@
-import * as create from "./Create";
-import * as getAll  from "./GetAll";
-import * as getById from "./GetById";
-import * as updateById from "./UpdateById";
-import * as deleteById from "./DeleteById";
+import * as create from "./Create.js";
+import * as getAll  from "./GetAll.js";
+import * as getById from "./GetById.js";
+import * as updateById from "./UpdateById.js";
+import * as deleteById from "./DeleteById.js";
 
 export const cidadesControlles = {
     ...create,
