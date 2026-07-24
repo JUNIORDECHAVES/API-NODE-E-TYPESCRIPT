@@ -6,8 +6,8 @@ import { cidadesProvider } from "../../database/provider/cidades/index.js";
 
 
 const Iqueryschema = z.object({
-    page: z.coerce.number().int().min(1).optional().default(1),
-    limit: z.coerce.number().int().min(1).optional().default(5),
+    page: z.coerce.number().int().min(1).optional(),
+    limit: z.coerce.number().int().min(1).optional(),
     filter: z.string().optional(),
 }).strict();
 
