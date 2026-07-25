@@ -7,6 +7,8 @@
         "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --forceExit",
         "dev": "tsx watch src/index.ts",
         "build": "tsc -p tsconfig.build.json",
+        "prisma:seed": "tsx prisma/seed.ts"
+        ,
         "start": "node build/src/index.js"
     },
     "type": "module",
