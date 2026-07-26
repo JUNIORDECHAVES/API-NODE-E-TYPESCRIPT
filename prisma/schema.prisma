@@ -13,8 +13,22 @@ datasource db {
 }
 
 model Cidades {
-    id Int @id @default(autoincrement())
-    nome String @unique @db.VarChar(100)
+    id      Int       @id @default(autoincrement())
+    nome    String    @db.VarChar(100)
+    pessoas Pessoas[]
 
     @@index([id, nome])
+    @@map("cidades")
+}
+
+model Pessoas {
+    id        Int     @id @default(autoincrement())
+    cidadeId  Int
+    cidade    Cidades @relation(fields: [cidadeId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+    email     String  @unique @db.VarChar(100)
+    nome      String  @db.VarChar(100)
+    sobrenome String  @db.VarChar(100)
+
+    @@index([id, cidadeId, nome, sobrenome])
+    @@map("pessoas")
 }
