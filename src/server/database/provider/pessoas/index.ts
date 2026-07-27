@@ -4,7 +4,8 @@ import { getAll } from "./GetAll.js";
 import { getById } from "./GetById.js";
 import { updateById } from "./UpdateById.js";
 
-export const cidadesProvider = {
+
+export const pessoasProvider = {
     create,
     deleteById,
     getAll,

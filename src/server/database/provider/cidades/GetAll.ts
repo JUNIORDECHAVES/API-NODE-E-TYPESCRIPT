@@ -7,28 +7,39 @@ export interface IGetAllResult {
     totalCount: number;
 }
 
+interface filter {
+    
+        nome?: string;
+        sobrenome?: string;
+    
+}
 
-export const getAll = async (page?: number, limit?: number, filter?: string): Promise<IGetAllResult | Error> => {
+
+export const getAll = async (page?: number, limit?: number, { nome, sobrenome }: filter = {}): Promise<IGetAllResult | Error> => {
     try {
-        const whereCondition = filter ? {
+        const whereCodicao = nome && sobrenome ? {
             nome: {
-                contains: filter,
+                contains: nome,
+                mode: 'insensitive' as const
+            },
+            sobrenome: {
+                contains: sobrenome,
                 mode: 'insensitive' as const
             }
         } : undefined;
 
-        const pageLimitCondition = {
+        const pageLimitCodicao = {
             skip: (page! - 1) * limit!,
             take: limit,
-            where: whereCondition,
+            where: whereCodicao,
         }
 
         const todasCidades = await prisma.cidades.findMany(
-            limit && page ? pageLimitCondition : { where: whereCondition }
+            limit && page ? pageLimitCodicao : { where: whereCodicao }
         );
 
         const totalCount = await prisma.cidades.count({
-            where: whereCondition
+            where: whereCodicao
         });
 
         const result: IGetAllResult = {
