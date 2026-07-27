@@ -1,11 +1,11 @@
 import { prisma } from "../../../../lib/prisma.js"
 import type { Ipessoa } from "../../models/pessoa.js";
 
-export const updateById = async (pessoa: Ipessoa): Promise<void | Error> => {
+export const updateById = async (id: number ,pessoa: Omit<Ipessoa, "id">): Promise<void | Error> => {
     try {
         const pessoaExiste = await prisma.cidades.findFirst({
             where: {
-                id: pessoa.id
+                id: id
             },
         })
         if (!pessoaExiste) {
@@ -21,7 +21,7 @@ export const updateById = async (pessoa: Ipessoa): Promise<void | Error> => {
 
         const pessoaAtualizada = await prisma.cidades.update({
             where:{
-                id: pessoa.id
+                id: id
             },
             data: {
                 pessoa

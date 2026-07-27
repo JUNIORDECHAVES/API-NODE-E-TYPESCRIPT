@@ -15,24 +15,19 @@ interface filter {
 }
 
 
-export const getAll = async (page?: number, limit?: number, { nome, sobrenome }: filter = {}): Promise<IGetAllResult | Error> => {
+export const getAll = async (page?: number, limit?: number, filter?: string): Promise<IGetAllResult | Error> => {
     try {
-        const whereCodicao = nome && sobrenome ? {
+        const whereCodicao = filter ? {
             nome: {
-                contains: nome,
-                mode: 'insensitive' as const
-            },
-            sobrenome: {
-                contains: sobrenome,
-                mode: 'insensitive' as const
+                contains: filter,
             }
         } : undefined;
 
         const pageLimitCodicao = {
             skip: (page! - 1) * limit!,
             take: limit,
-            where: whereCodicao,
-        }
+            where: whereCodicao
+        } 
 
         const todasCidades = await prisma.cidades.findMany(
             limit && page ? pageLimitCodicao : { where: whereCodicao }

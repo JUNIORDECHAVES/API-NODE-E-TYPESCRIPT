@@ -6,21 +6,33 @@ interface IGetAllResult {
     totalCount: number;
 }
 
-export const  getAll = async (page?: number, limit?: number, filter?: string)
+interface filter {
+    
+        nome?: string;
+        sobrenome?: string;
+    
+}
+
+export const  getAll = async (page?: number, limit?: number, { nome, sobrenome }: filter = {}, filter?: string)
 : Promise<IGetAllResult | Error> => {
     try {
 
-        const whereCodicao = filter ? {
+        const whereCodicao = nome && sobrenome ? {
             nome: {
-                contains: filter,
+                contains: nome,
+                mode: 'insensitive' as const
+            },
+            sobrenome: {
+                contains: sobrenome,
+                mode: 'insensitive' as const
             }
         } : undefined;
 
         const pageLimitCodicao = {
             skip: (page! - 1) * limit!,
             take: limit,
-            where: whereCodicao
-        } 
+            where: whereCodicao,
+        }
 
         const pessoas = await prisma.pessoas.findMany(
             page && limit ? pageLimitCodicao : { where: whereCodicao }
