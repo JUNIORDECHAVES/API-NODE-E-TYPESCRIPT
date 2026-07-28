@@ -1,12 +1,12 @@
 import { prisma } from "../../../../lib/prisma.js";
-import type { Ipessoa } from "../../models/pessoa.js";
+import type { IPessoa } from "../../models/pessoa.js";
 
-interface IGetAllResult {
-    todasPessoas: Ipessoa[];
+export interface IGetAllResult {
+    todasPessoas: IPessoa[];
     totalCount: number;
 }
 
-interface filter {
+export interface filter {
     
         nome?: string;
         sobrenome?: string;

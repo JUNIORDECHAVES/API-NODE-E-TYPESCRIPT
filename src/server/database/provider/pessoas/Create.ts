@@ -1,7 +1,7 @@
 import { prisma } from "../../../../lib/prisma.js";
-import type { Ipessoa } from "../../models/pessoa.js";
+import type { IPessoa } from "../../models/pessoa.js";
 
-export const create = async (pessoa: Omit<Ipessoa, "id">): Promise<Ipessoa | Error> => {
+export const create = async (pessoa: Omit<IPessoa, "id">): Promise<IPessoa | Error> => {
     try {
         const possoaExistente = await prisma.pessoas.findFirst({
             where: { email: {

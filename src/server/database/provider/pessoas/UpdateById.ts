@@ -1,9 +1,9 @@
 import { prisma } from "../../../../lib/prisma.js"
-import type { Ipessoa } from "../../models/pessoa.js";
+import type { IPessoa } from "../../models/pessoa.js";
 
-export const updateById = async (id: number ,pessoa: Omit<Ipessoa, "id">): Promise<void | Error> => {
+export const updateById = async (id: number ,pessoa: Partial<Omit<IPessoa, "id">>): Promise<void | Error> => {
     try {
-        const pessoaExiste = await prisma.cidades.findFirst({
+        const pessoaExiste = await prisma.pessoas.findFirst({
             where: {
                 id: id
             },
@@ -19,13 +19,12 @@ export const updateById = async (id: number ,pessoa: Omit<Ipessoa, "id">): Promi
             throw new Error("Cidade usada na atualização não foi encontrada.");
         }
 
-        const pessoaAtualizada = await prisma.cidades.update({
+        const pessoaAtualizada = await prisma.pessoas.update({
             where:{
                 id: id
             },
-            data: {
-                pessoa
-            }
+            data: pessoa
+            
         })
 
         return;

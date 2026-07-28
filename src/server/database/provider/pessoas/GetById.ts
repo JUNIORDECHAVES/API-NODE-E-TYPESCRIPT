@@ -1,7 +1,7 @@
 import { prisma } from "../../../../lib/prisma.js";
-import type { Ipessoa } from "../../models/pessoa.js";
+import type { IPessoa } from "../../models/pessoa.js";
 
-export const getById = async (id: number): Promise<Ipessoa | Error> => {
+export const getById = async (id: number): Promise<IPessoa | Error> => {
     try {
         const pessoa = await prisma.pessoas.findUnique({
             where: {
