@@ -1,9 +1,9 @@
 import { prisma } from "../../../../lib/prisma.js";
 
 
-export const deleteById =async (id: number): Promise<void | Error> => {
+export const deleteById = async (id: number): Promise<void | Error> => {
     try {
-        const pessoa = prisma.pessoas.findUnique({
+        const pessoa = await prisma.pessoas.findUnique({
             where: {
                 id
             }
@@ -13,11 +13,12 @@ export const deleteById =async (id: number): Promise<void | Error> => {
             throw new Error("Pessoa nao encontrada");
         }
 
-        const pessoaExcluida = await prisma.pessoas.delete({where: {id}});
+        const pessoaExcluida = await prisma.pessoas.delete({ where: { id } });
 
         return;
     } catch (error) {
         console.error("Error ao excluir pessoa:", error);
+        if (error instanceof Error) return error;
         throw new Error("Erro ao excluir pessoa.");
     }
 };
