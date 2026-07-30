@@ -19,7 +19,13 @@ export const deleteById = async (req: Request, res: Response) => {
     const result = await pessoasProvider.deleteById(id);
 
 
-    if (result instanceof Error) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: { default: result.message } });
+    if (result instanceof Error) {
+        if(result.message === "Pessoa não encontrada"){
+            return res.status(StatusCodes.NOT_FOUND).json({ errors: { default: result.message } });
+
+        };
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: { default: result.message } });
+    }
 
 
     return res.status(StatusCodes.NO_CONTENT).send();

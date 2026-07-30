@@ -16,6 +16,7 @@ export const getById = async (id: number): Promise<IPessoa | Error> => {
         return pessoa;
     } catch (error) {
         console.error("Error ao buscar pessoa:", error);
+        if (error instanceof Error) return error;
         throw new Error("Erro ao buscar pessoa.");
     }
 }

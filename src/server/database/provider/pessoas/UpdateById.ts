@@ -9,7 +9,7 @@ export const updateById = async (id: number ,pessoa: Partial<Omit<IPessoa, "id">
             },
         })
         if (!pessoaExiste) {
-            return new Error("Pessoa nao encontrada");
+            return new Error("Pessoa não encontrada");
         }
 
         const cidadeExistente = await prisma.cidades.findFirst({
