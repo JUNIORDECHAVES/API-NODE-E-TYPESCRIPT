@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 import { pessoasProvider } from "../../database/provider/pessoas/index.js";
 
 const GetByIdParamsSchema = z.object({
-    id: z.coerce.number().int().positive(),
+    id: z.coerce.number().int().positive().min(1),
 });
 
 type IParamsProps = { id: string };
