@@ -20,11 +20,21 @@ export const createValidation: RequestHandler = validation((getSchema) => (
     }
 ))
 
-export const create = async (req: Request<{}, {}, IBodyPessoa>, res: Response) =>{
+export const create = async (req: Request<{}, {}, IBodyPessoa>, res: Response) => {
 
     const result = await pessoasProvider.create(req.body);
 
-    if (result instanceof Error) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: { default: result.message } });
+    if (result instanceof Error) {
 
-    return res.status(StatusCodes.CREATED).json({ message: "Pessoa cadastrada com sucesso!", id: result });
+        if (result.message === "Cidade usada no cadastro não foi encontrada.") {
+            return res.status(StatusCodes.NOT_FOUND).json({ errors: { default: result.message } });
+        };
+        if (result.message === "Pessoa já cadastrada com este E-mail.") {
+            return res.status(StatusCodes.CONFLICT).json({ errors: { default: result.message } });
+        };
+
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: { default: result.message } });
+    };
+
+    return res.status(StatusCodes.CREATED).json({ message: "Pessoa cadastrada com sucesso!", id: result.id });
 }
