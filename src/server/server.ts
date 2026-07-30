@@ -5,6 +5,6 @@ import  "dotenv/config";
 const app: Express = express();
 app.use(express.json());
 app.use(router);
-
+app.set('query parser', 'extended');
 
 export { app };
