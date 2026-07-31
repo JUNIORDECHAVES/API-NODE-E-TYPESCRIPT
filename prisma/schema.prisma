@@ -32,3 +32,13 @@ model Pessoas {
     @@index([id, cidadeId, nome, sobrenome])
     @@map("pessoas")
 }
+
+model Usuarios {
+    id        Int    @id @default(autoincrement())
+    nome      String @db.VarChar(100)
+    sobrenome String @db.VarChar(100)
+    email     String @unique @db.VarChar(100)
+    senha     String @db.VarChar(30)
+
+    @@index([email])
+}
