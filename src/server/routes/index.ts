@@ -1,6 +1,7 @@
 import { Router } from "express";
 const router: Router = Router();
 import { cidadesControlles, pessoasControlles } from "../controllers/index.js";
+import { usuariosControlles } from "../controllers/usuarios/index.js";
 
 router.get("/", (req, res) => {
     res.send("Hello guys!");
@@ -19,5 +20,9 @@ router.post("/pessoas", pessoasControlles.createValidation, pessoasControlles.cr
 router.get("/pessoas/:id", pessoasControlles.getByIdValidation, pessoasControlles.getById);
 router.put("/pessoas/:id", pessoasControlles.updateByIdValidation, pessoasControlles.updateById);
 router.delete("/pessoas/:id", pessoasControlles.deleteValidation, pessoasControlles.deleteById);
+
+//Usuários
+router.post("/entrar", usuariosControlles.SignInValidation, usuariosControlles.SignIn);
+router.post("/cadastrar", usuariosControlles.SignUpValidation, usuariosControlles.SignUp);
 
 export { router };
