@@ -1,5 +1,5 @@
-import { prisma } from "../src/lib/prisma";
-import { cidadesSeed } from "./seeds/cidades";
+import { prisma } from "../src/lib/prisma.js";
+import { cidadesSeed } from "./seeds/cidades.js";
 
 async function main() {
     try {
