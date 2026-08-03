@@ -21,8 +21,8 @@ export const SignIn = async (req: Request<{}, {}, SignInSchema>, res: Response) 
     const result = await usuariosProvider.getByEmail(req.body);
 
     if (result instanceof Error) {
-        if (result.message === "Erro: Usuário com email existente .") {
-            return res.status(StatusCodes.CONFLICT).json({ errors: { default: result.message } });
+        if (result.message === "Usuário não encontrado.") {
+            return res.status(StatusCodes.UNAUTHORIZED).json({ errors: { default: result.message } });
         };
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: { default: result.message } });
     };
