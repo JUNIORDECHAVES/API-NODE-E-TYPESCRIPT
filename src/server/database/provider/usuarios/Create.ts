@@ -1,4 +1,5 @@
 import { prisma } from "../../../../lib/prisma.js";
+import { PasswordCrypto } from "../../../shared/services/PasswordCrypto.js";
 import type { IUsuario } from "../../models/usuario.js";
 
 
@@ -11,8 +12,13 @@ export const create = async (usuario: Omit<IUsuario, "id">): Promise<Pick<IUsuar
             throw new Error("Erro: Usuário com email existente .");
         }
 
+        const senhaCriptografada = await PasswordCrypto.hashPassword(usuario.senha);
+
         const novoUsuario = await prisma.usuarios.create({
-            data: usuario
+            data: {
+                ...usuario,
+                senha: senhaCriptografada
+            }
         });
 
         return { id: novoUsuario.id };

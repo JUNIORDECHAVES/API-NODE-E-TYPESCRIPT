@@ -24,15 +24,17 @@ export const SignIn = async (req: Request<{}, {}, SignInSchema>, res: Response) 
         if (result.message === "Usuário não encontrado.") {
             return res.status(StatusCodes.UNAUTHORIZED).json({ errors: { default: result.message } });
         };
+
+        if (result.message === "Senha incorreta.") {
+            return res.status(StatusCodes.UNAUTHORIZED).json({ errors: { default: "Email ou senha incorretos" } });
+        }
+
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: { default: result.message } });
     };
 
-    if (req.body.senha !== result.senha) {
-        return res.status(StatusCodes.UNAUTHORIZED).json({ errors: { default: "Email ou senha incorretos" } });
 
-    } else {
-        return res.status(StatusCodes.OK).json({ acessToken: "teste.teste.teste", id: result.id });
-    };
+    return res.status(StatusCodes.OK).json({ acessToken: "teste.teste.teste", id: result.id });
+
 
 
 

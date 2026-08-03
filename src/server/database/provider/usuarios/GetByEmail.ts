@@ -1,8 +1,9 @@
 import { prisma } from "../../../../lib/prisma.js";
+import { PasswordCrypto } from "../../../shared/services/PasswordCrypto.js";
 import type { IUsuario } from "../../models/usuario.js";
 
 
-export const getByEmail = async (usuario: Pick<IUsuario, "email">): Promise<IUsuario | Error> => {
+export const getByEmail = async (usuario: Pick<IUsuario, "email" | "senha">): Promise<IUsuario | Error> => {
     try {
         const usuarioExistente = await prisma.usuarios.findUnique({
             where: {
@@ -12,6 +13,12 @@ export const getByEmail = async (usuario: Pick<IUsuario, "email">): Promise<IUsu
 
         if (!usuarioExistente) {
             throw new Error("Usuário não encontrado.");
+        }
+
+        const comparePassword = await PasswordCrypto.verifyPassword(usuario.senha, usuarioExistente.senha );
+
+        if (!comparePassword) {
+            throw new Error("Senha incorreta.");
         }
 
         return usuarioExistente;
