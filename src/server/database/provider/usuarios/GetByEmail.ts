@@ -15,12 +15,6 @@ export const getByEmail = async (usuario: Pick<IUsuario, "email" | "senha">): Pr
             throw new Error("Usuário não encontrado.");
         }
 
-        const comparePassword = await PasswordCrypto.verifyPassword(usuario.senha, usuarioExistente.senha );
-
-        if (!comparePassword) {
-            throw new Error("Senha incorreta.");
-        }
-
         return usuarioExistente;
     } catch (error) {
         console.error("Error ao buscar pessoa:", error);
