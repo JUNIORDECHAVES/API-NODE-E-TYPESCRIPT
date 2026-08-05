@@ -27,7 +27,6 @@ export const EnsureAuthenticated: RequestHandler = async (req, res, next) => {
         });
     }
 
-    console.log(jwtData);
 
     req.headers.idUsuario = jwtData.uid.toString();
 
